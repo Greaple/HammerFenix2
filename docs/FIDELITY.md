@@ -25,4 +25,4 @@ Items use the original slot's feet coordinate. Each exported sprite's visible bo
 
 ## Useful reference material
 
-The supplied SWFs already provide extractable graphics and audio. An optional uncompressed XFL copy of `fla/gfx.fla`, including its entire accompanying folder, would make authoring-time library names, nesting and timelines easier to inspect. Preserve the FLA and do not flatten the timelines. Recorded original-game input/position sequences are the next requirement for measured gameplay parity.
+The supplied SWFs already provide extractable graphics and audio. The user has now supplied uncompressed XFL exports of `gfx`, `loader` and `sounds`; the [assessment](XFL-AUDIT.md) records their coverage and recovery results. These expose scenery/interface timelines and uncompressed source audio. The full character-animation source remains separate: the loader references `iceCubeAnim.fla`, while the compiled `_anims.swf` remains available. Recorded original-game input/position sequences are still needed for measured gameplay parity.

@@ -39,3 +39,7 @@ Actor frames retain the origin reported by JPEXS SVG output. Rendering applies t
 Pickup frames use the bottom-center of their nontransparent pixels as their ground anchor. JPEXS exports them on a shared canvas with uneven transparent margins, so its canvas center is not a usable ground position. Pickups spawn at the original slot's feet coordinate and fall onto platforms using the same physics as other bodies; grounded pickups do not bob through the floor.
 
 Original art/audio and the adapted output retain the upstream CC BY-NC-SA 4.0 notice. No generative images or replacement character artwork are used.
+
+## Supplied XFL exports
+
+The user supplied uncompressed `gfx`, `loader` and `sounds` authoring exports. See the [XFL assessment](XFL-AUDIT.md) for verified coverage, recovered audio and the distinction between scenery assets and the gameplay animation library. `scripts/audit-xfl.py` inventories these documents and can recover embedded PCM sounds as WAVs plus embedded JPEGs without changing their payloads. These inputs and review exports are not required at runtime.
