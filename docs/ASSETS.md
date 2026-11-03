@@ -36,4 +36,6 @@ The exporter uses Python's standard library to read SWF tags, normalize the defa
 
 Actor frames retain the origin reported by JPEXS SVG output. Rendering applies the original wrapper scales: 0.7 for Igor/cherries/apples, 1.0 for oranges/bombs. Borders and backgrounds come from upstream PNG/JPEG assets. Decorative ice particles, the web interface and room titles are new additions.
 
+Pickup frames use the bottom-center of their nontransparent pixels as their ground anchor. JPEXS exports them on a shared canvas with uneven transparent margins, so its canvas center is not a usable ground position. Pickups spawn at the original slot's feet coordinate and fall onto platforms using the same physics as other bodies; grounded pickups do not bob through the floor.
+
 Original art/audio and the adapted output retain the upstream CC BY-NC-SA 4.0 notice. No generative images or replacement character artwork are used.

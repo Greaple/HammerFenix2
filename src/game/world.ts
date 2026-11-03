@@ -54,7 +54,7 @@ export class World {
       if (![0,1,9].includes(e.$id)) throw new Error(`Unsupported enemy ${e.$id} in room ${index}`);
       return { ...body(e.$x * 20 + 10, (e.$y + 1) * 20), id: this.nextId++, kind: e.$id === 1 ? 'cherry' : e.$id === 9 ? 'orange' : 'apple', dir: this.random() < 0.5 ? -1 : 1, frozen: 0, dead: false, age: 0, cooldown: 64 + Math.floor(this.random() * 64) };
     });
-    this.items = l.$scoreSlots.map((s,i) => ({ x: s.$x * 20 + 10, y: (s.$y + 1) * 20 - 12, item: 1 + (index + i) % 10, points: 500, age: 0 }));
+    this.items = l.$scoreSlots.map((s,i) => ({ ...body(s.$x * 20 + 10, (s.$y + 1) * 20), item: 1 + (index + i) % 10, points: 500, age: 0 }));
     this.bombs = []; this.effects = []; this.shots = []; this.events = [];
     this.roomTicks = 0; this.clearTicks = 0; this.cleared = false;
   }
@@ -202,8 +202,10 @@ export class World {
     this.shots = this.shots.filter(s => s.age < 120 && s.x > 0 && s.x < 400 && !solid(this.level.$map, Math.floor(s.x / 20), Math.floor(s.y / 20)));
     for (const item of this.items) {
       item.age++;
-      if (!p.dead && Math.hypot(item.x - p.x, item.y - (p.y - 12)) < 22) {
-        this.addScore(item.points, item.x, item.y); item.age = -1; this.events.push('item_score');
+      moveBody(item, this.level.$map);
+      if (item.y > PHYSICS.height + 25) { item.y = -30; item.py = item.y; item.vy = 0; }
+      if (!p.dead && Math.hypot(item.x - p.x, item.y - p.y) < 22) {
+        this.addScore(item.points, item.x, item.y - 12); item.age = -1; this.events.push('item_score');
       }
     }
     this.items = this.items.filter(i => i.age >= 0);

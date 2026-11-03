@@ -82,8 +82,8 @@ export class Renderer {
       c.globalAlpha=1;
     }
     for(const item of world.items) {
-      const bob = reducedMotion ? 0 : Math.sin((item.age+alpha)/8)*2;
-      this.sprite(`item-${item.item}`,0,item.x,item.y+bob,1,0.85);
+      const p=point(item);
+      this.sprite(`item-${item.item}`,0,p.x,p.y,1,0.85);
     }
     for(const b of world.bombs) {
       const p=point(b);

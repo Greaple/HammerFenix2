@@ -111,8 +111,15 @@ for name,sid in groups.items():
 items=next((cache/'items').glob('DefineSprite_3147*'))
 for item in [1,2,3,4,5,6,7,8,9,10,11,12,51,52,53,54]:
     w,h,rows=read_png(items/f'{item}.png')
+    # Item exports share a padded canvas, but the artwork differs in size and offset.
+    # Anchor each pickup at the bottom-center of its visible pixels so its feet
+    # coincide with the platform, independent of the transparent export margins.
+    visible=[(x,y) for y,row in enumerate(rows) for x in range(w) if row[x*4+3]]
+    if not visible: raise ValueError(f'Item {item} has no visible pixels')
+    ox=(min(x for x,y in visible)+max(x for x,y in visible)+1)/2
+    oy=max(y for x,y in visible)+1
     animations[f'item-{item}']=[len(entries)]
-    entries.append((w,h,rows,w/2,h/2))
+    entries.append((w,h,rows,ox,oy))
 
 width=1024; x=y=2; row_height=0; rects=[]
 for w,h,rows,ox,oy in entries:

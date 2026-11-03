@@ -14,7 +14,7 @@
   },
   "generated": {
     "atlas.png": "299780c7092d4eb1ff16fedc4e19a6520bb626a219b693dc5391ab1e4c505e30",
-    "atlas.json": "125c2dadbb00d8a2478029462cc9b6535b3207e5c2742d04e8358f17d3166f81"
+    "atlas.json": "8db16676861263293d662852b76052d625dc1de059506910111a2f457b47615e"
   },
   "changes": [
     "Default Igor variants baked for static export",

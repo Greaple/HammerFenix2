@@ -21,7 +21,8 @@ export interface Enemy extends Body {
   frozen: number; dead: boolean; age: number; cooldown: number;
 }
 export interface Bomb extends Body { id: number; fuse: number; age: number }
-export interface Collectible { x: number; y: number; item: number; points: number; age: number }
+/** Like other bodies, a pickup's position is its feet, not its image center. */
+export interface Collectible extends Body { item: number; points: number; age: number }
 export interface Effect { x: number; y: number; age: number; type: 'ice' | 'score' | 'burst'; text?: string }
 export interface Shot { x: number; y: number; vx: number; age: number }
 export interface Input { left: boolean; right: boolean; jump: boolean; down: boolean; bomb: boolean }
