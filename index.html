@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10191c" />
+    <meta name="description" content="Return to the caverns of Hammerfest. A native web recreation with the original art, music, and opening levels." />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <title>HammerFenix — Back to the caverns</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <a class="wordmark" href="./" aria-label="HammerFenix home">
+          <svg class="brand-symbol" viewBox="0 0 40 44" fill="none" aria-hidden="true"><path d="M20 2 36 11v21l-16 10L4 32V11Z" stroke="currentColor"/><path d="m20 9 3 10 9-5-6 10 7 6-11-2-2 10-3-11-10 3 7-7-6-9 10 5Z" fill="currentColor"/></svg>
+          <span>HAMMER<span class="accent">FENIX</span><small>THE HAMMERFEST REVIVAL</small></span>
+        </a>
+        <nav aria-label="Main navigation">
+          <button class="nav-link active" id="play-nav">Adventure</button>
+          <button class="nav-link" data-dialog="help-dialog">How to play</button>
+          <button class="nav-link" data-dialog="about-dialog">The project <span aria-hidden="true">↗</span></button>
+        </nav>
+        <span class="build-tag"><span></span> EARLY PREVIEW</span>
+      </header>
+
+      <main>
+        <div class="page-title">
+          <div><p class="eyebrow">SOME ADVENTURES NEVER MELT.</p><h1>Back to the caverns<span>.</span></h1></div>
+          <p class="title-note">A little snowman. A lot of bad fruit.<br>The descent begins again.</p>
+        </div>
+
+        <div class="game-layout">
+          <aside class="journey-panel" aria-label="Your adventure">
+            <div class="section-heading"><span class="tiny-diamond">◇</span> YOUR ADVENTURE</div>
+            <div class="hero-card">
+              <div class="portrait"><img src="./assets/original/heroe_igor.png" alt="Igor, the snowman" /></div>
+              <div><h2>Igor</h2><span>Small hero. Big heart.</span></div>
+            </div>
+            <div class="stat-row"><span>Personal best</span><strong id="best-score">000000</strong></div>
+            <div class="stat-row"><span>Deepest room</span><strong id="furthest">—</strong></div>
+            <div class="divider"></div>
+            <div class="section-heading">THE FIRST DESCENT</div>
+            <p class="subtle small">Ten familiar rooms.<br>One more chance to go deeper.</p>
+            <ol class="room-path" id="room-path" aria-label="Room progress"></ol>
+            <button class="text-button" data-dialog="rooms-dialog">Practice a room <span>↗</span></button>
+            <div class="archive-note"><span class="tiny-diamond">✧</span><p>Made from the original<br>Motion Twin game.</p><span class="note-year">2006 → TODAY</span></div>
+          </aside>
+
+          <section class="game-cabinet" aria-label="HammerFenix game">
+            <div class="game-hud">
+              <div><span class="hud-label">SCORE</span><strong id="score">000000</strong></div>
+              <div class="hud-lives"><span class="hud-label">LIVES</span><span id="lives" aria-label="3 lives">◆ ◆ ◆</span></div>
+              <div class="hud-room"><span class="hud-label">ROOM</span><strong id="room-number">01<span> / 10</span></strong></div>
+            </div>
+            <div class="playfield" id="playfield">
+              <canvas id="game" width="400" height="500" tabindex="0" aria-label="HammerFenix platform game. Use arrow keys to move and jump, space to drop or kick a bomb, and P to pause.">Your browser needs Canvas support to play HammerFenix.</canvas>
+              <div class="game-overlay" id="overlay">
+                <div class="overlay-content">
+                  <span class="overlay-emblem" aria-hidden="true">❄</span>
+                  <p class="eyebrow" id="overlay-label">WELCOME BACK, ADVENTURER</p>
+                  <h2 id="overlay-title">The caverns await.</h2>
+                  <p id="overlay-description">Freeze the fruit. Find your footing.<br>See how far down you can go.</p>
+                  <button class="primary-button" id="start" disabled><span id="start-label">Preparing the caverns…</span><span aria-hidden="true">→</span></button>
+                  <p class="overlay-hint" id="overlay-hint">Original art. Original music. A new beginning.</p>
+                </div>
+              </div>
+              <div class="room-toast" id="room-toast" aria-live="polite"></div>
+            </div>
+            <div class="game-toolbar">
+              <span class="game-status"><i></i><span id="status">Loading original assets</span></span>
+              <div class="toolbar-actions">
+                <button id="sound" class="icon-button" aria-label="Mute sound" title="Toggle sound"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path class="sound-waves" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg></button>
+                <button id="pause" class="icon-button" aria-label="Pause game" title="Pause (P)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg></button>
+                <button id="fullscreen" class="icon-button" aria-label="Enter fullscreen" title="Fullscreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button>
+              </div>
+            </div>
+            <div class="touch-controls" aria-label="Touch game controls">
+              <div><button data-control="left" aria-label="Move left">←</button><button data-control="right" aria-label="Move right">→</button></div>
+              <div><button data-control="jump" aria-label="Jump">↑</button><button data-control="bomb" class="bomb-control" aria-label="Drop or kick bomb">BOMB</button></div>
+            </div>
+          </section>
+
+          <aside class="field-guide" aria-label="Game instructions">
+            <div class="section-heading"><span class="tiny-diamond">✧</span> A QUICK REFRESHER</div>
+            <div class="guide-step"><span class="guide-number">01</span><div><h3>Find your footing.</h3><p>Move through the caverns.<br>Jump up through platforms.</p><div class="keys"><kbd>←</kbd><kbd>→</kbd><span>move</span><kbd>↑</kbd><span>jump</span></div></div></div>
+            <div class="guide-step"><span class="guide-number">02</span><div><h3>Give fruit the chills.</h3><p>Drop an ice bomb. Press again<br>nearby to kick it across the room.</p><div class="keys"><kbd class="wide-key">SPACE</kbd><span>drop / kick</span></div></div></div>
+            <div class="guide-step"><span class="guide-number">03</span><div><h3>Keep going down.</h3><p>Clear every enemy, then fall<br>below the room to continue.</p></div></div>
+            <button class="text-button" data-dialog="help-dialog">All controls <span>↗</span></button>
+            <div class="tip-card"><div class="section-heading">A LITTLE CAVERN WISDOM</div><p>Frozen fruit makes a very good projectile.</p><span>Send one into another for a combo.</span></div>
+            <div class="run-detail"><span id="run-caption">READY WHEN YOU ARE</span><span id="run-time">00:00</span></div>
+            <button id="restart" class="quiet-button">↻ &nbsp; New run</button>
+          </aside>
+        </div>
+        <p class="below-game"><span>✦</span> An old favourite, finding its feet again. <button data-dialog="about-dialog">About this preview</button></p>
+      </main>
+      <footer><span>Original game &amp; artwork by <a href="https://github.com/motion-twin/hammerfest" target="_blank" rel="noreferrer">Motion Twin</a>.</span><span>A community revival <i>·</i> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noreferrer">CC BY-NC-SA 4.0</a><i>·</i><a href="https://github.com/Greaple/HammerFenix2" target="_blank" rel="noreferrer">Source ↗</a></span></footer>
+    </div>
+
+    <dialog id="help-dialog"><div class="dialog-top"><p class="eyebrow">THE CAVERN FIELD GUIDE</p><button data-close aria-label="Close controls">×</button></div><h2>A few things to remember.</h2><p>Jump through platforms from below. A bomb freezes nearby enemies and sends them sliding. Bump frozen fruit into other enemies for a chain reaction.</p><div class="control-table"><div><span>Move</span><span><kbd>←</kbd> <kbd>→</kbd> or A / D (Q / D)</span></div><div><span>Jump</span><span><kbd>↑</kbd> or W / Z</span></div><div><span>Drop / kick a bomb</span><span><kbd>SPACE</kbd> or Ctrl / X</span></div><div><span>Kick upward</span><span><kbd>↓</kbd> + <kbd>SPACE</kbd></span></div><div><span>Pause / resume</span><span><kbd>P</kbd> or Esc</span></div></div><p>One bomb at a time. Drop one in midair for a small upward boost. Falling below an uncleared room brings you back at the top; once it's clear, falling takes you deeper.</p><p class="small subtle">Touch controls appear on smaller screens. Standard gamepads: D-pad / left stick to move, A to jump, B to bomb, Start to pause.</p><label class="motion-option"><input id="reduced-motion" type="checkbox"/> Reduce decorative motion</label><div class="dialog-run-actions"><button class="text-button" data-dialog="rooms-dialog">Practice a room <span>↗</span></button><button class="text-button" id="restart-help">Start a new run <span>↻</span></button></div><button class="primary-button" data-close>Got it <span>→</span></button></dialog>
+    <dialog id="about-dialog"><div class="dialog-top"><p class="eyebrow">A SECOND LIFE FOR HAMMERFEST</p><button data-close aria-label="Close project information">×</button></div><h2>Old soul. New foundations.</h2><p>HammerFenix is an independent recreation of Motion Twin's Hammerfest, originally released in 2006. This preview brings its opening ten combat rooms to the modern web.</p><p>The original backgrounds, animation frames, music, and level layouts are preserved. Movement uses the original timing and physics constants.</p><div class="preview-note"><strong>This is the first playable milestone.</strong><p>Enemy decision-making and scoring are simplified. Quests, secret dimensions, special items, the introduction, and later levels are still to be ported. The full decoded level archive is included in the source.</p></div><p class="small">Original work © Motion Twin. This adaptation is distributed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noreferrer">CC BY-NC-SA 4.0</a>. HammerFenix is not an official Motion Twin release.</p><a class="primary-button" href="https://github.com/Greaple/HammerFenix2" target="_blank" rel="noreferrer">Explore the project <span>↗</span></a></dialog>
+    <dialog id="rooms-dialog"><div class="dialog-top"><p class="eyebrow">LEARN THE LAY OF THE LAND</p><button data-close aria-label="Close room selection">×</button></div><h2>A little practice goes a long way.</h2><p>Start a fresh run from any preview room. Practice runs do not change your personal best.</p><div id="room-selection" class="room-selection"></div></dialog>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

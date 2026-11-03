@@ -1,0 +1,25 @@
+{
+  "source": "https://github.com/motion-twin/hammerfest",
+  "commit": "fa8624307c8168fdec0c18d644509af933e4af7b",
+  "license": "CC-BY-NC-SA-4.0",
+  "tools": {
+    "JPEXS": "26.4.0",
+    "Java": "21"
+  },
+  "inputs": {
+    "swf/_anims.swf": "bcea8d9f13b0e5aac8bbd5e87071267088228840b578f140a91c029ecfb53407",
+    "swf/_sounds.swf": "2f3e4f8cc2d4fe225c6bd6628482ccdf50060031fa4d719b78f2ad051c0e5ca1",
+    "xml/levels/adventure.xml": "ecc9268769a85ee2e26d300a712384090ab83918497a9853dba14ae9236473c8",
+    "xml/levels/tutorial.xml": "21042909ce374b2d7b70ca576dc796fd59dcece837f9ac260c725edcb376802c"
+  },
+  "generated": {
+    "atlas.png": "299780c7092d4eb1ff16fedc4e19a6520bb626a219b693dc5391ab1e4c505e30",
+    "atlas.json": "125c2dadbb00d8a2478029462cc9b6535b3207e5c2742d04e8358f17d3166f81"
+  },
+  "changes": [
+    "Default Igor variants baked for static export",
+    "SWF frames rasterized and packed",
+    "Level serialization decoded to JSON",
+    "New TypeScript simulation and interface"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "hammerfenix",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A native web recreation of Motion Twin's Hammerfest",
+  "license": "CC-BY-NC-SA-4.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "check": "npm test && npm run build",
+    "import:levels": "node scripts/import-levels.mjs"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "vite": "7.3.7"
+  }
+}
