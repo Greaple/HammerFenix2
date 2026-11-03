@@ -12,6 +12,7 @@ The source defines `SECOND = 32`. `FixedClock` accumulates elapsed time and exec
 | --- | --- |
 | `src/game/world.ts` | Pure simulation, room lifecycle, actors, collisions, score and gameplay events |
 | `src/game/physics.ts` | Source constants, swept platform movement and fixed simulation clock |
+| `src/game/bombs.ts` | Classic bomb kicks, airborne restrictions, floor rebounds and blast targeting |
 | `src/game/renderer.ts` | Canvas drawing, atlas frames, cached room backgrounds and interpolation |
 | `src/game/input.ts` | Keyboard, pointer/touch and standard gamepad normalization |
 | `src/game/audio.ts` | Gesture-unlocked Web Audio effects and music; failures never interrupt the game |
@@ -36,6 +37,9 @@ The input model consumes a queued bomb press once; continuous movement is sample
 | Classic bomb | `entity/bomb/player/Classic.mt` | 45 cycles, power 30 |
 | Blast radius | `entity/Bomb.mt` | 60 px |
 | Freeze time | `FREEZE_DURATION` | 160 cycles |
+| Horizontal bomb kick | `PLAYER_HKICK_X`, `PLAYER_HKICK_Y` | 3.5 horizontal, −7.4 vertical |
+| Upward bomb kick | `PLAYER_VKICK` | −18 vertical, preserves/doubles horizontal motion |
+| Bomb rebound | `Mover.bounceFactor` | 0.5, only when rebound speed is at least 2 |
 
 These constants preserve a useful baseline, not a claim of exact behavioral parity. Upstream update ordering, collision corner cases and AI still require recorded-reference comparisons.
 

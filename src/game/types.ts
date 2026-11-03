@@ -20,7 +20,11 @@ export interface Enemy extends Body {
   id: number; kind: 'cherry' | 'orange' | 'apple'; dir: number;
   frozen: number; dead: boolean; age: number; cooldown: number;
 }
-export interface Bomb extends Body { id: number; fuse: number; age: number }
+export interface Bomb extends Body {
+  id: number; fuse: number; age: number;
+  airKick: boolean; bounces: boolean; lastKickTick: number;
+  nextBounce: { vx: number; vy: number } | null;
+}
 /** Like other bodies, a pickup's position is its feet, not its image center. */
 export interface Collectible extends Body { item: number; points: number; age: number }
 export interface Effect { x: number; y: number; age: number; type: 'ice' | 'score' | 'burst'; text?: string }

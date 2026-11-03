@@ -46,12 +46,15 @@ The browser pauses the game on focus loss or when hidden. Records and mute prefe
 - Source-derived movement, jumping, air damping, bomb fuse/radius/power and freeze duration.
 - Original Igor animation states; cherries, oranges and apples; ice bombs; original sound effects and looping music.
 - Bomb kicks, freezing, sliding ice collisions, chain scoring, score pickups, lives, temporary respawn protection, room transitions, and a completion screen.
+- Bomb kick impulses, air-kick restrictions, floor rebounds and grounded-blast reach taken from the original source. Pickups use visible ground anchors and fall onto platforms.
 - Pause, mute, fullscreen, room practice, local records, reduced decorative motion and responsive controls.
 - Deterministic replay checks at 60 / 120 / 144 display Hz, swept collision tests and content integrity checks.
 
 ## Fidelity boundaries
 
 This is a migration foundation. Enemy AI is a simplified implementation of the three opening enemy families; it is not a port of the original decision grid. Collision uses the source's one-way-platform model and constants but has not been validated frame by frame against Flash. Scoring, combo rewards and score-item distribution are provisional. Three starting lives, touch/gamepad controls, the surrounding interface and descriptive room names are adaptations.
+
+The bomb pass is covered by source-derived trajectory and boundary checks (see [fidelity notes](docs/FIDELITY.md)). These are not recorded Flash replays. The upward-kick shortcut is available without the original unlock; bomb behavior on stairs, special weapons and modifiers still needs porting.
 
 The original level scripts are retained as data, **not executed**. The exterior, introduction, secret portals, special items, quests, unlocks, remaining enemies, later rooms, bosses, multiplayer, exact hurry-up pursuer and ending are not yet implemented. Having all 107 decoded adventure records does not mean those rooms are supported by the runtime.
 

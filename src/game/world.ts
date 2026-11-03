@@ -1,4 +1,5 @@
 import { body, moveBody, PHYSICS, solid } from './physics.ts';
+import { BOMB_RULES, createBomb, kickBomb, moveBomb, withinBlast } from './bombs.ts';
 import type { Bomb, Collectible, Effect, Enemy, Input, OriginalLevel, Phase, Player, Shot } from './types.ts';
 
 export const ROOM_NAMES = ['First footsteps', 'Down the rabbit hole', 'A bitter encounter', 'Orange you glad?', 'Cold company', 'An apple a day', 'Mind the gap', 'The orchard below', 'Four is a crowd', 'One more descent'];
@@ -79,25 +80,25 @@ export class World {
   }
   private attack(input: Input) {
     const p = this.player;
-    const near = this.bombs.find(b => Math.hypot(p.x - b.x, p.y - b.y) < (p.grounded ? 20 : 30));
+    const near = this.bombs.find(b => Math.hypot(p.x - b.x, p.y - b.y) <= (p.grounded ? BOMB_RULES.groundReach : BOMB_RULES.airReach));
     if (near) {
-      near.vx = input.down ? 0 : p.dir * (PHYSICS.speed + 3.5);
-      near.vy = input.down ? -18 : -7.4;
-      near.grounded = false;
-      p.action = 10; this.events.push('kick');
+      if (kickBomb(near,p.dir,this.tick,input.down)) { p.action = 10; this.events.push('kick'); }
     } else if (this.bombs.length < 1) {
-      const b: Bomb = { ...body(p.x, p.y), id: this.nextId++, fuse: PHYSICS.bombFuse, age: 0 };
+      const b = createBomb(p.x,p.y,this.nextId++);
       b.grounded = p.grounded;
-      if (!p.grounded) { p.vy = Math.min(p.vy, -7); b.vx = p.dir * 7.8; b.vy = -7.4; }
       this.bombs.push(b); p.action = 10; this.events.push('bomb_drop');
+      if (!p.grounded) {
+        p.vy = Math.min(p.vy,-BOMB_RULES.airJump);
+        kickBomb(b,p.dir,this.tick); this.events.push('kick');
+      }
     }
   }
   explode(bomb: Bomb) {
     this.events.push('bomb'); this.emit('burst', bomb.x, bomb.y - 10);
     for (const e of this.enemies) {
       if (e.dead) continue;
+      if (!withinBlast(bomb,e.x,e.y)) continue;
       const distance = Math.hypot(e.x - bomb.x, e.y - bomb.y);
-      if (distance >= PHYSICS.bombRadius) continue;
       const power = (1 - distance / PHYSICS.bombRadius) * PHYSICS.bombPower;
       const angle = Math.atan2(e.y - bomb.y, e.x - bomb.x);
       e.vx = Math.cos(angle) * power;
@@ -143,7 +144,7 @@ export class World {
       }
     }
     for (const b of this.bombs) {
-      b.age++; moveBody(b, this.level.$map, { slide: 0.7, bounce: true });
+      moveBomb(b,this.level.$map);
       b.fuse--;
       if (b.fuse === 0) this.explode(b);
     }

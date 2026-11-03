@@ -16,10 +16,10 @@ export function solid(map: number[][], col: number, row: number): boolean {
 }
 
 /** One-way platform tops, solid sides, no ceiling collision, swept in <=4 px steps. */
-export function moveBody(b: Body, map: number[][], options: { fall?: number; friction?: boolean; slide?: number; bounce?: boolean } = {}): boolean {
+export function moveBody(b: Body, map: number[][], options: { fall?: number; friction?: boolean; slide?: number; bounce?: boolean; skipGravity?: boolean } = {}): boolean {
   b.px = b.x; b.py = b.y;
   if (b.grounded && (b.vy !== 0 || !solid(map, Math.floor(b.x / 20), Math.floor((b.y + 0.1) / 20)))) b.grounded = false;
-  if (!b.grounded) b.vy += b.vy < 0 ? PHYSICS.gravity : PHYSICS.fall * (options.fall ?? 1);
+  if (!b.grounded && !options.skipGravity) b.vy += b.vy < 0 ? PHYSICS.gravity : PHYSICS.fall * (options.fall ?? 1);
   const steps = Math.max(1, Math.ceil(Math.max(Math.abs(b.vx), Math.abs(b.vy)) / 4));
   let sx = b.vx / steps, sy = b.vy / steps;
   let wall = false;
